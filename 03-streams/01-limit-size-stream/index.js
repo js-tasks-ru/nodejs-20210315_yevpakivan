@@ -2,6 +2,10 @@ const LimitSizeStream = require('./LimitSizeStream');
 const fs = require('fs');
 
 const limitedStream = new LimitSizeStream({limit: 8, encoding: 'utf-8'}); // 8 байт
+limitedStream.on('error', (e) => {
+  throw e;
+});
+
 const outStream = fs.createWriteStream('out.txt');
 
 limitedStream.pipe(outStream);
